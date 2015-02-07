@@ -1,0 +1,79 @@
+<html>
+<head>
+	<link rel="stylesheet" href="github-markdown.css">
+</head>
+<body>
+
+
+<h1>
+<a id="user-content-build-script-notes" class="anchor" href="#build-script-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build Script Notes</h1>
+
+<p>Notes, neat things, and gotchas about building and packaging a Go
+executable for the Mac App Store. This is based on the bampf project
+build at <a href="https://github.com/gazed/bampf/blob/master/build">https://github.com/gazed/bampf/blob/master/build</a></p>
+
+<h2>
+<a id="user-content-notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h2>
+
+<ul>
+<li>The build script was written in Python as it either already available or
+easily installed on OS X, Windows, and Linux. Python is mainly used to
+execute the individual shell commands needed to create the final product.</li>
+<li>The build script attempts to be maintainable in two ways:
+first, it is kept short at around 150 lines, and second many
+of the individual commands can be tested simply by pasting
+from the script to the command line.</li>
+<li>Tools other than go were needed for the final OS X Application. The OS X
+command line tools are needed for compiling, Xcode was used to create
+developer signing keys, and OS X Application Loader was used to submit the
+executable for App store approval.</li>
+<li>Product resources, like icons, are stored in the
+<a href="https://github.com/gazed/bampf/tree/master/src"><code>bampf/src</code></a> directory.
+This seemed a handy place to keep product related stuff without cluttering
+the top directory, <code>bampf</code>, or the code directory, <code>bampf/src/bampf</code>.</li>
+</ul>
+
+<h2>
+<a id="user-content-neat-things" class="anchor" href="#neat-things" aria-hidden="true"><span class="octicon octicon-link"></span></a>Neat things</h2>
+
+<ul>
+<li>
+<code>buildBinary (line 53)</code>: Its nice to be able to inject a version number into
+the executable during the build. In this case the version comes from source
+control tags, git for this project, combined with the go build -X flag.</li>
+<li>
+<code>buildWindows (line 110)</code>: Sometimes it can be easier to ship a single executable.
+Zip was used combine the game resources with the go executable into a single binary.
+At runtime, the go executable is able to open itself to read the zipped resources.</li>
+</ul>
+
+<h2>
+<a id="user-content-gotchas" class="anchor" href="#gotchas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gotchas</h2>
+
+<ul>
+<li>
+<code>buildOSX (line 68)</code>: Needed <code>-linkmode=external</code> build flag as Apple looks
+for some system specific fields in the executable. Details in go issue 6198.</li>
+<li>
+<code>buildOSX (lines 73-80)</code>: Mac applications need to conform to a particular
+directory structure.</li>
+<li>
+<code>buildOSX (lines 88-93)</code>: Mac applications have a particular file mode that
+can copied from an existing Mac app.</li>
+<li>Application signing is a must. Add the following lines at the end of the <code>buildOSX</code>
+method. Edit to replace <code>XXX</code> and <code>YYY</code> with the names of your developer OS X keys.</li>
+</ul>
+
+<div class="highlight highlight-python"><pre>    <span class="pl-c"># create two signed versions.  One for self distribution, one for the app store.</span>
+    signOsx(<span class="pl-s1"><span class="pl-pds">'</span>target<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>"Developer ID Application: XXX"<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>"Developer ID Installer: XXX"<span class="pl-pds">'</span></span>)
+    signOsx(<span class="pl-s1"><span class="pl-pds">'</span>target/app<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>"3rd Party Mac Developer Application: YYY"<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>"3rd Party Mac Developer Installer: YYY"<span class="pl-pds">'</span></span>)
+
+<span class="pl-st">def</span> <span class="pl-en">signOsx</span>(<span class="pl-vpf">outdir</span>, <span class="pl-vpf">akey</span>, <span class="pl-vpf">ikey</span>):
+    subprocess.call(shlex.split(<span class="pl-s1"><span class="pl-pds">'</span>codesign -fv --entitlements src/Entitlements.plist -s <span class="pl-pds">'</span></span><span class="pl-k">+</span>akey<span class="pl-k">+</span><span class="pl-s1"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span><span class="pl-k">+</span>outdir<span class="pl-k">+</span><span class="pl-s1"><span class="pl-pds">'</span>/Bampf.app<span class="pl-pds">'</span></span>))
+    subprocess.call(shlex.split(<span class="pl-s1"><span class="pl-pds">'</span>productbuild --version 1.0 --sign <span class="pl-pds">'</span></span><span class="pl-k">+</span>ikey<span class="pl-k">+</span><span class="pl-s1"><span class="pl-pds">'</span> --component <span class="pl-pds">'</span></span><span class="pl-k">+</span>outdir<span class="pl-k">+</span><span class="pl-s1"><span class="pl-pds">'</span>/Bampf.app /Applications <span class="pl-pds">'</span></span><span class="pl-k">+</span>outdir<span class="pl-k">+</span><span class="pl-s1"><span class="pl-pds">'</span>/Bampf.pkg<span class="pl-pds">'</span></span>))</pre></div>
+
+<p>Caveats: while the script can also build a Windows executable when on a
+windows OS, it is not at the point where the application can be submitted
+to the Windows App store. Also Linux builds are stubbed at the moment.</p>
+</body>
+</html>
