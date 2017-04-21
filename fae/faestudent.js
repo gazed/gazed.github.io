@@ -85,15 +85,17 @@ Front.on('conversation', function (data) {
   contact = data.contact;
 
   // Have the page update based on the data sent.
-  document.getElementById('contactName').innerHTML = contact.display_name;
-  document.getElementById('contactEmail').innerHTML = contact.handle;
+  document.getElementById('contact_name').innerHTML = contact.display_name;
+  document.getElementById('contact_email').value = contact.handle;
+  document.getElementsByClassName("avatar")[0].setAttribute("data-initials", contact.initials);
 });
 
 // Register FrontApp callback method.
 Front.on('no_conversation', function () {
   console.log('No converstation');
-  document.getElementById('contactName').innerHTML = "";
-  document.getElementById('contactEmail').innerHTML = "";
+  document.getElementById('contact_name').innerHTML = "";
+  document.getElementById('contact_email').value = "";
+  document.getElementsByClassName("avatar")[0].setAttribute("data-initials", "-");
 });
 
 // Register FrontApp callback method.

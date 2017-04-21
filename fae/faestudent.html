@@ -23,9 +23,9 @@
 
     <!-- Based on FrontApp sidebar contact display -->
     <div class="contacts-side-user-bio">
-      <div class="avatar" data-initials="P" data-has-avatar="false" ng-style="contactAvatarStyle(cardModel)" ng-switch-when="view" ng-if="cardModel" style="background-color: rgb(133, 224, 146);">
+      <div class="avatar" data-initials="-" data-has-avatar="false" ng-style="contactAvatarStyle(cardModel)" ng-switch-when="view" ng-if="cardModel" style="background-color: rgb(133, 224, 146);">
       </div>
-      <div class="display-name" ng-switch-when="view">Paul Ruest</div>
+      <div id="contact_name", class="display-name" ng-switch-when="view">None</div>
     </div>
     <div class="contacts-side-user-fields" ng-switch-when="view" ng-if="cardModel">
       <li class="field-line ng-hide" ng-show="cardModel.description">
@@ -34,7 +34,8 @@
       </li>
       <li class="field-line" ng-repeat="contactField in cardModel.contacts()">
         <span class="key">Email</span>
-        <input type="text" ng-model="contactField.handle" class="val -ellipsis ng-pristine ng-untouched ng-valid ng-not-empty" easy-select="" readonly="readonly">
+        <span class="val"></span>
+        <input type="text" id="contact_email" ng-model="contactField.handle" class="val -ellipsis ng-pristine ng-untouched ng-valid ng-not-empty" easy-select="" readonly="readonly">
       </li>
     </div>
 
