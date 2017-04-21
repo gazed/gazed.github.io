@@ -14,12 +14,31 @@
         margin-top: 2px;
       }
     </style>
+    <link rel="stylesheet" href="faestudent.css">
     <script type="text/javascript" src="https://dl.frontapp.com/libs/frontjs.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="faestudent.js"></script>
   </head>
   <body>
-    <div id="contactName"></div>
-    <div id="contactEmail"></div>
+
+    <!-- Based on FrontApp sidebar contact display -->
+    <div class="contacts-side-user-bio">
+      <div class="avatar" data-initials="P" data-has-avatar="false" ng-style="contactAvatarStyle(cardModel)" ng-switch-when="view" ng-if="cardModel" style="background-color: rgb(133, 224, 146);">
+      </div>
+      <div class="display-name" ng-switch-when="view">Paul Ruest</div>
+    </div>
+    <div class="contacts-side-user-fields" ng-switch-when="view" ng-if="cardModel">
+      <li class="field-line ng-hide" ng-show="cardModel.description">
+        <span class="key">Description</span>
+        <span class="val"></span>
+      </li>
+      <li class="field-line" ng-repeat="contactField in cardModel.contacts()">
+        <span class="key">Email</span>
+        <input type="text" ng-model="contactField.handle" class="val -ellipsis ng-pristine ng-untouched ng-valid ng-not-empty" easy-select="" readonly="readonly">
+      </li>
+    </div>
+
+    <!-- From original plugin demo -->
     <button onClick="unassign()">Unassign</button>
     <button onClick="toggleArchive()">Archive/Unarchive</button>
     <button onClick="toggleTrashed()">Trash/Untrash</button>
@@ -31,3 +50,4 @@
     <button onclick="fetchInboxes()">Fetch inboxes</button>
   </body>
 </html>
+
