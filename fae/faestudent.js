@@ -1,6 +1,9 @@
 // Based on sample plugin https://github.com/frontapp/frontapp.github.io/
 // Trialed using https://gazed.github.io/fae
+// The auth secret 8d21e271faa390a4 needs to be validated to confirm that
+// communication is from FrontApp.
 var conversation;
+var contact;
 
 function unassign() {
   Front.unassign(conversation);
@@ -60,7 +63,6 @@ function fetchTeammates() {
   Front.fetchAllowedTeammates(function (teammates) {
     if (!teammates)
       return;
-
     console.log(teammates);
   });
 }
@@ -69,15 +71,32 @@ function fetchInboxes() {
   Front.fetchInboxes(function (inboxes) {
     if (!inboxes)
       return;
-
     console.log(inboxes);
   });
 }
 
+// Register FrontApp callback method.
 Front.on('conversation', function (data) {
   console.log('Conversation', data.conversation);
   console.log('Contact', data.contact);
   console.log('Message', data.message);
   console.log('OtherMessages', data.otherMessages);
-  onversation = data.conversation;
+  conversation = data.conversation;
+  contact = data.contact;
+
+  // Have the page update based on the data sent.
+  document.getElementById('contactName').innerHTML = contact.display_name;
+  document.getElementById('contactEmail').innerHTML = contact.handle;
+});
+
+// Register FrontApp callback method.
+Front.on('no_conversation', function () {
+  console.log('No converstation');
+  document.getElementById('contactName').innerHTML = "";
+  document.getElementById('contactEmail').innerHTML = "";
+});
+
+// Register FrontApp callback method.
+Front.on('panel_visible', function (visible) {
+  console.log('Panel visible', visible);
 });
