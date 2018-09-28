@@ -1,0 +1,557 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  color: black;
+    padding: 25px;
+}
+
+/* page 1 */
+.container {
+  min-height: 150vh;
+  display: grid;
+  grid-template-columns: 130px auto;
+  grid-template-rows: 155px 650px 420px 170px auto;
+  grid-template-areas: 
+        "logo header" 
+        "navbar content"
+        "plng plng"
+      "plnglocs plnglocs"
+      "extraspage1 extraspage1"
+/*        "familytree familytree"
+        "FYIetc FYIetc" */
+  }
+
+/* Page Emplacememnts */
+.container-locations {
+  min-height: 150vh;
+  display: grid;
+  grid-template-columns: 10px auto;
+  grid-template-rows: 155px 155px auto;
+  grid-template-areas: 
+        "header header" 
+        "moreinfo2 moreinfo2"
+        "content content"
+/*        "familytree familytree"
+        "FYIetc FYIetc" */
+  }
+
+.logo {
+  height: 120px; width: 90px;
+  border-radius: 30px;
+  background: url(images/page1/P1logo-candle-small1.JPG) no-repeat;
+  background-size: cover;
+  border: solid 1px #aaa;
+  box-shadow: 0 0 0 4px #eee, 0 0 0 5px #aaa;
+  margin-left: 15px;
+}
+
+#header {
+    grid-area: header;
+    background-color: #c4b7a6;
+    color: black;
+    font-size: 18px;
+    padding: 5px;
+/*    border: solid 5px transparent;*/
+    
+  }
+#moreinfo2 {
+    grid-area: moreinfo2;
+   /* background-color: #e54b4b;*/
+    background-color: lightblue;
+    color: black;
+    font-size: 18px;
+    padding: 5px;
+    border: solid 5px transparent;
+  }
+
+/******* NAVBAR *****/
+.navbar {
+    border-color: firebrick;
+    background-color: darkgray;
+    font-size: 15px;
+    color: black;
+    }
+
+.navbar li {
+    padding: 10px;
+    border: 1px solid lightblue;
+    list-style-type : none;
+}
+
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    text-align: left;
+    /*border: 5px solid green; */
+    transition: color 1s ease, background 1s ease;
+    
+}
+
+.navbar a:hover {
+    /*color: green;
+    background: #7e7880; */
+    background: black;
+    color: white;
+}
+
+.text-block-side {
+    color: ghostwhite;
+    font-size: 10px;
+}
+
+/*===============================================*/
+#extraspage1{
+    grid-area: extraspage1;
+    background-color: cholocate;
+}
+*******************************/
+
+#content {
+    grid-area: content;
+    background-color: white;
+  }
+
+#content_text{
+    color: black;
+    text-align: justify;
+    font-size: 1.1em;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+}
+
+.contenthdr{
+    color: black;
+    font-size: 1.5em;
+    padding: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.pierrelvl1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+}
+
+.text-pierrelvl1-side {
+    color: black;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+
+.mysources{
+    color: grey;
+    font-size: 0.8em;
+}
+
+/***********************************/
+/****** PELERINAGE */
+
+#plng{
+    background-color: antiquewhite;
+    grid-area: plng;
+  }
+
+.plng-title__name{
+    color: black;
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 15px;
+    text-align: center;
+}
+
+.plng__locations{
+    grid-area: plnglocs;
+ 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 15px;
+    position: relative;
+    color: black;
+}
+
+.box11 {
+/*    min-width: 0.1fr;*/
+    background-color: oldlace;
+    border: solid 2px #aaa;
+    padding-left: 5px;
+}
+
+/******* END Page 1 Pelerinage */
+
+.EdP_Id {
+   color:indianred; 
+   font-size: 0.75em;
+}
+
+.plgn__single-plgn-text{
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 1.4;
+    letter-spacing: 0rem;
+}
+.plgn__single-plgn-smalltext{
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 1.2;
+    letter-spacing: 0rem;
+    color: var(--grey);
+    font-size: 0.8rem;
+}
+
+/* FIN PELERINAGE */
+
+/*
+  #familytree{
+    background-color: green;
+    grid-area: familytree;
+  } */
+/*
+#FYIetc{
+    background-color: mediumpurple;
+    grid-area: FYIetc;
+  }
+
+
+#content {
+  color: #1b1b1e;
+  background-color: #f5f5f5;
+  line-height: 1.5;
+  padding: 20px;
+}
+
+
+#footer {
+  background: #1b1b1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width:776px) {
+  .container {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 75px 1fr 10px 10px;
+    grid-template-areas: 
+        "header header" 
+        "navbar content"
+        "navbar familytree "
+        "FYIetc FYIetc"
+  }
+  #header {
+    grid-area: header;
+  }
+  #nav {
+    grid-area: navbar;
+  }
+  #content {
+    grid-area: content;
+  }
+  #aside {
+    grid-area: familytree;
+  }
+  #footer {
+    grid-area: FYIetc;
+  }
+
+}
+*/
+
+/*****************/
+/* page LucRosina */
+
+.container-child {
+ display: grid; 
+    grid-template-columns: 250px 150px 150px auto;
+    grid-template-rows: 150px auto;
+    grid-gap: 20px 20px;
+    padding: 10px;
+    color: black;
+ /*   background-color: grey;*/
+    grid-template-areas:
+    'top1-topitem flex-top1 flex-top1 flex-topx'
+    'top2-topitem flex-top2 flex-top3 flex-top4';
+    
+}
+
+.top1-topitem{
+    grid-area: top1-topitem;
+   /* background-color:blueviolet;*/
+    padding: 30px;
+    font-size: 1.3em
+}
+.top2-topitem{
+    grid-area: top2-topitem;
+   /* background-color: darkcyan;*/
+    padding: 30px;
+    font-size: 1.3em;
+}
+
+.flex-topx{
+    grid-area: flex-topx;
+    display: grid;
+    color: white;
+    border: 1px solid white;
+}
+
+.flex-top1{
+  grid-area: flex-top1;
+  display: grid;
+  color: black;
+/*  background-color: rgba(255,255,0,0.3);
+  border: 1px solid rgba(0, 0, 0, 0.8);*/
+    /*justify-content: space-around;*/
+ }
+
+.flex-top2{
+    grid-area: flex-top2;
+    display: grid;
+/*    justify-content: space-around;*/
+    color: black;
+    align-content: end;
+    
+ }
+
+.top2-item{
+    padding: 5px;
+    border: 1px solid purple;
+    /*flex: 1 1 60px; */
+}
+
+/*****************/
+/* page Renommée - 3 columns 1 row kids */
+
+.container-child-renom {
+ display: grid; 
+    grid-template-columns: 250px 180px 200px;
+    grid-template-rows: 150px;
+    grid-gap: 20px 20px;
+    padding: 10px;
+    color: black;
+    background-color: grey;
+    grid-template-areas:
+    'top1-topitem-renom flex-top1 flex-top2';
+    
+}
+
+/* ========================================================================== */
+/* FAMILY 1 */
+.familyInfo{
+    display: grid; 
+    grid-template-columns: 500px auto;
+    grid-template-rows: 350px auto;
+    grid-gap: 20px 20px;
+    padding: 10px;
+    color: black;
+    background-color: cornsilk;
+    grid-template-areas:
+    'familyInfoTxt familyInfoTxt'
+    'familyInfoImg familyInfoH'
+    'familyInfoImg1 familyInfoH1'
+    'familyInfoImg2 familyInfoH2'
+     'familyInfoImg3 familyInfoH3';
+}
+
+.familyInfoH{
+    grid-area: familyInfoH;
+    color: black;
+    background-color: #ebe2d3;
+    padding: 10px; 
+}
+.familyInfoH1{
+    grid-area: familyInfoH1;
+    color: black;
+    background-color: #ebe2d3;
+    padding: 10px;  
+}
+
+.familyInfoH2{
+    grid-area: familyInfoH2;
+    color: black;
+    background-color: #ebe2d3;
+    padding: 10px;  
+}
+
+.famtxt{
+   padding: 10px;
+}
+
+.familyInfoImg{
+    grid-area: familyInfoImg;
+    background-color: paleturquoise;
+}
+
+.familyInfoImg1{
+    grid-area: familyInfoImg1;
+    background-color: paleturquoise;
+}
+
+.familyInfoImg2{
+    grid-area: familyInfoImg2;
+    background-color: paleturquoise;
+}
+.familyInfoTxt{
+    grid-area: familyInfoTxt;
+    color: black;
+    background-color: #c4b7a6;
+}
+
+.observ{
+    padding: 20px;
+}
+.observ-1{
+    padding: 20px;
+}
+
+.familyInfoH3{
+    grid-area: familyInfoH3;
+    color: black;
+    background-color: palegreen;
+    padding: 10px;  
+}
+
+/***************************/
+/* TABLE : HISTORY DETAILS */
+.familyhistory__tbl{    
+/*border-collapse: collapse;*/
+width: 100%;
+border:2px solid #b9936c;    
+}
+
+th, td {
+    border: 1px solid #b9936c;
+    text-align: left;
+    padding: 8px;
+}
+
+td{
+    line-height: 1.3;
+}
+
+tr:nth-child(even) {
+    background-color: #dac292;
+}
+
+/* table header colors */
+th {
+    background-color: #b9936c;
+    color: white;
+}
+
+/***************************/
+/* TABLE : CHECKBOX TO HIDE/SHOW HISTORY DETAILS */
+.wrap__hidetbl{
+/*    border: 1px solid red;*/
+}
+
+.inner__hidetbl{
+/*    border: 4px solid purple; */
+    max-width: 100%;
+  /*  margin: auto;*/
+}
+
+input[type=checkbox]{
+    display: none;
+}
+
+input[type=checkbox] ~ label {
+  background: #c4b7a6;
+  height: 10px;
+  color: #fff;
+  padding: 16px;
+  display: block;
+}
+input[type=checkbox]:checked ~ label ~ .content__hidetbl { 
+  opacity: 0;
+  height: 0;
+  display: none;
+}
+.content__hidetbl {
+  background: white;
+/*  height: 200px;
+  padding: 16px; */
+  display: block;
+  clear: both;
+}
+.content__hidetbl2 {
+  background: red;
+/*  height: 200px;
+  padding: 16px; */
+  display: block;
+  clear: both;
+}
+/*****
+.terms label {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    background: rgba(black,0.05);
+    border-radius: 5px;
+    transition: all 1s ease;
+}
+.terms label:hover {
+    background: rgba(grey,0.5);
+}
+.terms [type=checkbox] {
+    display: none;
+}
+.terms .terms__hide {
+    display: table;
+    height: 200px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+.terms input[type="checkbox"]:checked + .terms__hide {
+    height: 0;
+    display: block;
+}
+*/
+
+/************* END FAMILY 1 *********/
+
+/*
+.fam-mbr1-img{
+    color: black;
+}
+.fam-mbr1{
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 1em;
+  text-align: center;
+    color: black;
+}
+
+*/
+
+/*
+family-children {
+    display: flex;
+    flex-wrap: wrap;
+}*/
+
+
+/*
+img-fam {
+    border: 1px solid #ddd; /* Gray border *
+    border-radius: 4px;  /* Rounded border *
+    padding: 5px; /* Some padding *
+    width: 150px; /* Set a small width *
+    margin-bottom: 0; /*get rid of space*/
+}
+
+/* Add a hover effect (blue shadow) 
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}*/
