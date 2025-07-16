@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+  <meta name="GENERATOR" content="github.com/gomarkdown/markdown markdown processor for Go" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="tech.css" />
+</head>
+<body>
+
+<!-- Copyright © 2021-2025 Galvanized Logic Inc. -->
+
+<h6>2025-07</h6>
+
+<h1>Go Game Dev Tools</h1>
+
+<p>Developing games using <code>golang</code> remains niche. A standard game development
+path starts with picking an engine, which then kind of makes the choice
+of programming language and some tooling for you. For example:</p>
+
+<ul>
+<li>Pick a game engine:
+
+<ul>
+<li><code>Unreal Engine</code> which tends towards C++ code.</li>
+<li><code>Unity</code> which tends towards C# coding.</li>
+</ul></li>
+<li>Add one or more platform specific IDE&rsquo;s:
+
+<ul>
+<li><code>Xcode</code> on macos</li>
+<li><code>Visual Studio</code> on windows</li>
+</ul></li>
+</ul>
+
+<p>Since I enjoy programming in <code>go</code> and learning about 3D programming, I find myself coding
+games from scratch while I wait for a <code>golang</code> production level 3D game engine.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>
+While I don&rsquo;t recommend this path if you just want to make games, I find it rewarding
+as I get to learn some game programming basics.</p>
+
+<p>This still leaves a large amount of development tool choices,
+which can be narrowed down based on preferences.</p>
+
+<p>My ideal is a small tool chain where the tools are open source
+and supported on multiple platforms. Even if you agree with that ideal,
+the range of tool options is massive. While this article lists the
+tools I use to create small single player games, I would be surprised if
+the exact same tool set was used by any other developer.</p>
+
+<p>The difficult choice I find I have to make when evaluating tools is &ldquo;value add&rdquo; vs &ldquo;complexity&rdquo;.
+Does the tool add enough value to justify learning how to use it?
+How much do I have to fight with the tool to get it to produce what I want?</p>
+
+<p>Again, I feel that each developer will find different tools work better for them,
+and it is may be part of the reason why there are so many tool choices.</p>
+
+<p>Here are the tools that work for me without any justification as to why,
+or any rationalization that they are better than the multitude of other options.</p>
+
+<hr />
+
+<p><strong>Code:</strong> mainly <code>golang</code> <em><a href="https://golang.org/dl/">https://golang.org/dl/</a></em> using a text based editor.
+Access to native platform libraries may require some <code>C</code> code wrapped in
+<code>go</code> bindings, ie:</p>
+
+<ul>
+<li>Platform (<code>macos</code>, <code>win</code>, &hellip;) for windowing systems and user input.</li>
+<li>GPU API (<code>vulkan</code>) <em><a href="https://vulkan.lunarg.com/sdk/home">https://vulkan.lunarg.com/sdk/home</a></em></li>
+<li>Audio API (<code>OpenAL</code>)  <em><a href="http://openal-soft.org/openal-binaries/">http://openal-soft.org/openal-binaries/</a></em></li>
+</ul>
+
+<hr />
+
+<p><strong>Source Control:</strong> <code>git</code> <em><a href="https://gitforwindows.org">https://gitforwindows.org</a></em>.
+<code>github</code> can provide value as it has built in bug tracking and support for a project wiki.</p>
+
+<hr />
+
+<p><strong>2D images:</strong> <code>krita</code> for both pixel and vector layers <em><a href="https://krita.org/en/download/">https://krita.org/en/download/</a></em></p>
+
+<hr />
+
+<p><strong>3D models:</strong> <code>blender</code> <em><a href="https://www.blender.org/download">https://www.blender.org/download</a></em></p>
+
+<hr />
+
+<p><strong>Audio Editing:</strong> <code>audacity</code> <em><a href="https://www.audacityteam.org/download/">https://www.audacityteam.org/download/</a></em></p>
+
+<hr />
+
+<p><strong>Video Editing:</strong> <code>shotcut</code> which is a paid app. I occassionaly look around for an open source alternative.</p>
+
+<hr />
+
+<p><strong>GPU Debugging:</strong> <code>renderdoc</code> <em><a href="https://renderdoc.org/builds">https://renderdoc.org/builds</a></em></p>
+
+<hr />
+
+<p><strong>Documentation:</strong> <code>go doc</code>, markdown, and plain text README files.</p>
+
+<h2>Build and Package</h2>
+
+<p><strong>Build and Packaging:</strong> is done using <code>go generate</code> to call the command line
+packaging utilities provided in the platform specific developer kits, eg:</p>
+
+<ul>
+<li>Steamworks SDK <em><a href="https://partner.steamgames.com/doc/sdk">https://partner.steamgames.com/doc/sdk</a></em></li>
+<li>Microsoft Windows SDK <em><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/</a></em></li>
+</ul>
+
+<p>For me &ldquo;go generate&rdquo; works nicely with builds that are designed as a small sequence of
+command line calls.<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></p>
+
+<h2>Terminal and Editor</h2>
+
+<p><strong>Terminal:</strong> windows terminal from the microsoft store using the git bash shell
+<em><a href="https://apps.microsoft.com/detail/9n0dx20hk701">https://apps.microsoft.com/detail/9n0dx20hk701</a></em></p>
+
+<hr />
+
+<p><strong>Editor:</strong> <code>vim</code> comes as part of the git for windows bash shell.
+Vim itself can become a source of complexity through the use of plugins,
+particularly when the plugins don&rsquo;t work on windows.<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup></p>
+
+<h2>Utilities</h2>
+
+<p><strong>Fast File Search:</strong> <code>rg</code> <em><a href="https://github.com/BurntSushi/ripgrep">https://github.com/BurntSushi/ripgrep</a></em></p>
+
+<p><strong>Code Counter:</strong> <code>tokei</code> <em><a href="https://github.com/XAMPPRocky/tokei">https://github.com/XAMPPRocky/tokei</a></em></p>
+
+<h2>Aesthetics</h2>
+
+<p><strong>Font:</strong> <code>hack</code> <em><a href="https://sourcefoundry.org/hack">https://sourcefoundry.org/hack</a></em></p>
+
+<p><strong>Color Pallete:</strong> <code>solarized</code> <em><a href="https://ethanschoonover.com/solarized">https://ethanschoonover.com/solarized</a></em></p>
+
+<h2>Notes</h2>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><p>I use my own 3D &ldquo;hobby&rdquo; engine <a href="https:github.com/gazed/vu">https:github.com/gazed/vu</a>,
+While it is written in <code>go</code>, I do not recommend for others, as it has a very
+small user base (only one that I know of). It can produce working games though
+as shown by my latest game <a href="https:floworlds.com">https:floworlds.com</a>.</p></li>
+
+<li id="fn:2"><p>A <code>go generate</code> snippet that builds the win64 packages for Steam and the Windows Store.</p>
+
+<pre><code class="language-go">// -----------------------------------------------------------------------------
+// generate the windows syso file.
+// requires https://github.com/akavel/rsrc in PATH
+//
+//go:generate rsrc -arch amd64 -ico win_icon.ico -manifest win_manifest.xml
+//go:generate mv rsrc_windows_amd64.syso ../win_amd64.syso
+//
+// -----------------------------------------------------------------------------
+// build shippable exe
+// NOTE: https://github.com/golang/go/issues/71242 discusses asyncpreemptoff and freezes w. steam.
+//
+//go:generate go build -C .. -ldflags &quot;-H=windowsgui -X runtime.godebugDefault=asyncpreemptoff=1 -X main.Version=v1.6.4&quot;
+
+// =============================================================================
+// Create the steam zip file.
+// Upload this to steam as a new build from the steamworks app webpage.
+//
+//go:generate cp ../flow.exe ./floworlds.exe
+//go:generate env &quot;PATH=/c/WINDOWS/system32:$PATH&quot; tar.exe -a -cf steam/floworlds.zip floworlds.exe OpenAL32.dll
+
+// =============================================================================
+// Create the windows store package.
+// Validate using &quot;Windows App Cert Kit&quot; before uploading.
+//
+//go:generate cp ../flow.exe ./win/floworlds/floworlds.exe
+//go:generate makeappx.exe pack -d win/floworlds -p win/floworlds.msix
+</code></pre></li>
+
+<li id="fn:3"><p>example <code>.vimrc</code> that avoids plugins while adding <code>go fmt</code> and <code>go build</code> to <code>vim</code></p>
+
+<pre><code class="language-vimscript">&quot; set tabs to 4 spaces.
+set tabstop=4 shiftwidth=4
+
+&quot; override some syntax highlights
+colorscheme default
+highlight Comment term=bold ctermfg=240
+highlight Todo term=bold ctermfg=9 ctermbg=NONE
+
+&quot; override vim file tab bar colors
+hi TabLineFill ctermfg=8 ctermbg=8
+hi TabLine ctermfg=White ctermbg=8
+hi TabLineSel ctermfg=White ctermbg=Yellow
+
+&quot; needed to disable bell when using windows terminal.
+set noerrorbells visualbell t_vb=
+
+&quot; edit file tabs
+set tabpagemax=50
+nnoremap &lt;S-l&gt; :tabnext&lt;CR&gt;
+nnoremap &lt;S-h&gt; :tabprevious&lt;CR&gt;
+nnoremap tt :tabnew&lt;Space&gt;
+nnoremap tn :tabm&lt;Space&gt;
+
+&quot; save with Control-X
+nnoremap &lt;C-x&gt; :update&lt;cr&gt;
+&quot; clear trailing spaces with \s
+nnoremap \s ::%s/\s\+$//e&lt;CR&gt;
+
+&quot; glsl syntax highlighting
+&quot; from https://www.vim.org/scripts/script.php?script_id=1002
+augroup glsl_syntax
+        autocmd!
+        autocmd BufNewFile,BufRead *.frag,*.vert,*.glsl setf glsl
+augroup END
+
+&quot; gofmt
+function! GoFmt()
+        let saved_view = winsaveview()
+        silent %!gofmt
+        if v:shell_error &gt; 0
+                cexpr getline(1, '$')-&gt;map({ idx, val -&gt; val-&gt;substitute('&lt;standard input&gt;', expand('%'), '') })
+                silent undo
+        cwindow
+        else
+                cclose
+        endif
+        call winrestview(saved_view)
+endfunction
+command! GoFmt call GoFmt()
+augroup go_autocmd
+        autocmd BufWritePre *.go GoFmt
+augroup END
+
+&quot; go compile
+autocmd Filetype go set makeprg=go\ build
+autocmd QuickFixCmdPost [^l]* cwindow
+nnoremap &lt;F5&gt; :silent make&lt;CR&gt;&lt;C-L&gt;&lt;CR&gt;
+
+&quot; use existing tabs or switch to a new tab
+set switchbuf+=usetab,newtab
+
+&quot; remove trailing whitespace
+nnoremap &lt;F8&gt; :%s/\s\+$//e&lt;CR&gt;
+</code></pre></li>
+</ol>
+
+</div>
+
+</body>
+</html>

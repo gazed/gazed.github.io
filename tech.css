@@ -1,0 +1,247 @@
+/* 
+ * a tweaked subset of MIT licensed
+ * https://github.com/kevquirk/simple.css 
+ */
+
+/* global variables. */
+:root {
+  /* Set sans-serif & mono fonts */
+  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
+    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
+    "Helvetica Neue", sans-serif;
+  --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  --standard-border-radius: 5px;
+  --border-width: 1px;
+
+  /* Default (dark) theme */
+  --bg: #212121;
+  --accent-bg: #2b2b2b;
+  --text: #dcdcdc;
+  --text-light: #ababab;
+  --accent: #ffb300;
+  --accent-hover: #ffe099;
+  --accent-text: var(--bg);
+  --code: #f06292;
+  --preformatted: #ccc;
+  --marked: #ffdd33;
+  --disabled: #111;
+}
+
+/* Add a bit of transparency so light media isn't so glaring in dark mode */
+img,
+video {
+  opacity: 0.8;
+}
+
+/* Reset box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Use mono font for code elements */
+code,
+pre,
+pre span,
+kbd,
+samp {
+  font-family: var(--mono-font);
+  color: var(--code);
+}
+
+html {
+  /* Set the font globally */
+  font-family: var(--sans-font);
+  scroll-behavior: smooth;
+}
+
+/* Make the body a nice central block */
+body {
+  color: var(--text);
+  background-color: var(--bg);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1fr min(45rem, 90%) 1fr;
+  margin: 0;
+}
+body > * {
+  grid-column: 2;
+}
+
+/* Format headers */
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+
+h4 {
+  font-size: 1.44rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+}
+
+h6 {
+  font-size: 0.96rem;
+}
+
+p {
+  margin: 1.5rem 0;
+}
+
+/* Prevent long strings from overflowing container */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Fix line height when title wraps */
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+/* Format links & buttons */
+a,
+a:visited {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Format tables */
+table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+figure > table {
+  width: max-content;
+  margin: 0;
+}
+
+td,
+th {
+  border: var(--border-width) solid var(--border);
+  text-align: start;
+  padding: 0.5rem;
+}
+
+th {
+  background-color: var(--accent-bg);
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  /* Set every other cell slightly darker. Improves readability. */
+  background-color: var(--accent-bg);
+}
+
+table caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+*/
+
+/* Consolidate box styling */
+aside, details, pre, progress {
+  background-color: var(--accent-bg);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--standard-border-radius);
+  margin-bottom: 1rem;
+}
+
+/* Use mono font for code elements */
+code,
+pre,
+pre span,
+kbd,
+samp {
+  font-family: var(--mono-font);
+  color: var(--code);
+}
+
+pre {
+  padding: 1rem 1.4rem;
+  max-width: 100%;
+  overflow: auto;
+  color: var(--preformatted);
+}
+
+/* Fix embedded code within pre */
+pre code {
+  color: var(--preformatted);
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Misc body elements */
+hr {
+  border: none;
+  width: 50%;
+  height: 1px;
+  background: white; 
+}
+
+
+/* Print */
+@media print {
+  @page {
+    margin: 1cm;
+  }
+  body {
+    display: block;
+  }
+  body > header {
+    background-color: unset;
+  }
+  body > header nav,
+  body > footer {
+    display: none;
+  }
+  article {
+    border: none;
+    padding: 0;
+  }
+  a[href^="http"]::after {
+    content: " <" attr(href) ">";
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  a {
+    text-decoration: none;
+  }
+  p {
+    widows: 3;
+    orphans: 3;
+  }
+  hr {
+    border-top: var(--border-width) solid var(--border);
+  }
+  mark {
+    border: var(--border-width) solid var(--border);
+  }
+  pre, table, figure, img, svg {
+    break-inside: avoid;
+  }
+  pre code {
+    white-space: pre-wrap;
+  }
+}
+
+
