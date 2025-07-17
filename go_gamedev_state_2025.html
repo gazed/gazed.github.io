@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+  <meta name="GENERATOR" content="github.com/gomarkdown/markdown markdown processor for Go" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="tech.css" />
+</head>
+<body>
+
+<h6>2025-07</h6>
+
+<h1>Go Gamedev State 2025.</h1>
+
+<p>Go game development has grown since 2012. Overall still small, but noticably bigger.
+I base this opinion on my game dev hobby experience which started in 2012
+when I wanted learn a little about both go and game dev by writing a 3D game.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>
+The hobby continued over the years and every so often, like a gopher,
+I pop my head up and look around.</p>
+
+<p>The first thing I look for is 3D golang game engines, or golang support in existing game engines.</p>
+
+<ul>
+<li><strong>azul3d</strong> was one of the early engines, but it seems to have gone away.</li>
+<li><strong>g3n</strong> looks good. Not much activity in the last few years.</li>
+<li><strong>harfang3D</strong> has go support <a href="https://github.com/harfang3d/harfang-go">harfang-go</a>. Not much activity in the last few years.</li>
+<li><strong>bgfx</strong> render library has the start of a golang wrapper.</li>
+<li><strong>ebiten</strong> appears to be a popular supported 2D golang engine. There&rsquo;s been some requests to add 3D.</li>
+</ul>
+
+<p>The encouraging point is that things are happening, even if it is on a small scale.
+Why is there not more going on? Golang game dev questions regularly pop up on reddit
+and my attempt to summarize the explanations fall into three substantial categories:
+the philosophical, the practical, and the technical.</p>
+
+<h3>Philosophical</h3>
+
+<p>The philosophical arguments deals with programming world views summed up in Rob Pike&rsquo;s
+<a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html">Less is exponentially more</a>
+For me, it beautifully answers &ldquo;Why develop games in Go?. For the same reasons Go was created.
+At the same time, it also answers &ldquo;why c++ game developers are not switching to go&rdquo;.</p>
+
+<p>My experience of creating small games in UnrealEngine<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup> and my own <code>golang</code> hobby engine<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup>
+has only reinforced my belief that the game dev community would benefit tremendously from
+a good dose of &ldquo;less is exponentially more&rdquo;.</p>
+
+<h3>Practical</h3>
+
+<p>The first practical consideration is that it would likely take a group of dedicated+experienced devs,
+a bunch of time, and even some $$$ to get get a serious <code>golang</code> engine off the ground.
+I feel a good example of this is the <code>Godot</code> engine (sounds like it should be written in Go, no?).</p>
+
+<p>The second practical reason can be summed as &ldquo;it ain&rsquo;t really needed&rdquo;. This is less
+to do with the amount of existing 3D engines, and more because the coding part
+in game dev can be a very small portion of the work. This is true even for small games,
+as I find myself spending less time coding (thanks to <code>golang</code> for making it enjoyable)
+and more time on the other things necessary to create and ship a game:</p>
+
+<ul>
+<li>game design</li>
+<li>level design</li>
+<li>3D modelling and animation (ok, I&rsquo;m basically still making games with blocks and spheres)</li>
+<li>narrative design and dialog (not a writer either)</li>
+<li>audio design, capture, and editing (had to pay for help with this)</li>
+<li>2D art and textures (and this)</li>
+</ul>
+
+<p>The end result is that you get to choose whatever language you want for game development
+because it only affects a small portion of your overall effort. Mostly your game code
+involves &ldquo;scripting&rdquo; which, for small games, can be done in UnrealEngines <code>Blueprints</code>,
+avoiding C++ programming entirely. In this light I can see my non-engine go game dev
+coding as &ldquo;scripting&rdquo; using <code>go</code> - and its very enjoyable.</p>
+
+<h3>Technical</h3>
+
+<p>I think of the technical issue as the &ldquo;golang impedence problem&rdquo;.
+the impedence problem is that golang game dev absolutely requires interfacing with
+non-golang libraries like:</p>
+
+<ul>
+<li>Vulkan API</li>
+<li>Platform API for the render display and the user input. Think <a href="https://glfw.org">glfw</a></li>
+<li>Audio API</li>
+</ul>
+
+<p>I found wrapping the native API&rsquo;s with <code>cgo</code> to be a bit frustrating.
+The more wrapping the more frustrating, to the point where I found it was
+easier to port some open source code rather than wrapping it.</p>
+
+<ul>
+<li>physics library - originally based on a small part of the bullet engine core, currently based on <em><a href="https://github.com/felipeek/raw-physics">https://github.com/felipeek/raw-physics</a></em></li>
+<li>linear math library - its been awhile, I think this was based on the original opengl math library.</li>
+<li>asset loading - prefer <em><a href="https://github.com/qmuntal/gltf">https://github.com/qmuntal/gltf</a></em> to wrapping a C asset load library.</li>
+</ul>
+
+<p>I don&rsquo;t want to add a C compiler to my tech stack (I&rsquo;m spoiled, I know, and don&rsquo;t forget lazy).
+Ideally I want to code in <code>go</code> and nothing else. I ended up only supporting win64 in my engine,
+which allowed me to replace <code>cgo</code> with syscalls. Whether or not this is a good idea,
+coding became noticably more enjoyable once it was <code>go</code> only.</p>
+
+<p>I&rsquo;m always hoping someone else solves this problem, either by porting the stuff that
+can be ported or finding some ultimate solution that is likely lower level than I&rsquo;m comfortable with.
+For example could the tool <a href="https://github.com/minio/c2goasm">c2goasm</a> help me generate API layers?
+Don&rsquo;t know, just discovered this one today. Is it even possible to write the Vulkan API layer in <code>go</code>?
+Maybe. Does it make sense? Worth the effort? Maybe not. Would love it if one just appeared though.</p>
+
+<h3>Summary</h3>
+
+<p>Go game development is slowly growing but is a long way from being a viable alternative
+for new game dev coders. As a hobby, its fantastic!</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><p><a href="https://github.com/gazed/bampf">Bampf</a> was created to test my initial attempt at a hobby game engine.
+  Please don&rsquo;t look, both the game and engine were bad in multiple ways. The game is deprecated and
+  would only work work with an ancient verion of the engine.</p></li>
+
+<li id="fn:2"><p><a href="https://shootffs.com">SFFS</a> There are so many problems with this game.
+  First off its a non-violent shooter, which has a market base of no-one.
+  Add in my poor reuse of UE assets and my crappy animations and you have a bad game,
+  but a really good learning experience about some of the strengths and weakness
+  of both UnrealEngine (to many things to add here) and my game dev
+  abilities (I enjoy coding, not modelling or animating).</p></li>
+
+<li id="fn:3"><p><a href="https://floworlds.com">Floworlds</a> Better. First game on the most recent <code>golang</code>
+  <a href="https://github.com/gazed/vu">vu engine</a> which removed <code>cgo</code> and swapped
+  out <code>OpenGL</code> for <code>Vulkan</code>.</p></li>
+</ol>
+
+</div>
+
+</body>
+</html>
