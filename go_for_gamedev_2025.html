@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title></title>
+  <meta name="GENERATOR" content="github.com/gomarkdown/markdown markdown processor for Go" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="tech.css" />
+</head>
+<body>
+
+<!-- Copyright © 2025 Galvanized Logic Inc. -->
+
+<h6>2025-07 - rust</h6>
+
+<h1>Go Gamedev State 2025.</h1>
+
+<p>Go can absolutely be used for gamedev and has been since Go was released in 2012.
+While the number of golang gamedevs and game projects has slowly grown,
+I propose three explanations, philosophical, practical, and technical,
+as to why Go gamedev is not even more popular.</p>
+
+<h3>Philosophical</h3>
+
+<p>The philosophical explanation is perfectly presented in Rob Pike&rsquo;s
+<a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html">Less is exponentially more</a>.
+A great article which answers why games should be developed using Go.
+It is for the same reasons that Go was created.</p>
+
+<p>Moreover, the key point of the article discusses why C++ [game engine] devs do not switch to Go,
+and it has to do with <em>&ldquo;Do you think less is more, or less is less?&rdquo;</em></p>
+
+<p>I think Go&rsquo;s world view would naturally lead to an initial focus on the game dev essentials.
+My own golang hobby engine<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> is a wish list of the core functionality
+that I would love to see supported in pure Go, eg:</p>
+
+<ul>
+<li>asset loading - be selective: png for images, glfw for models, etc.</li>
+<li>linear math library - 64 bit to work with golang math.</li>
+<li>platform library - think <a href="https://glfw.org">glfw</a> written in Go.</li>
+<li>gpu api library - start with the Vulkan API generated from the spec.</li>
+</ul>
+
+<p>Overall my experience of creating small games in UnrealEngine and my own
+golang engine<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup> has reinforced my belief that the game dev community would
+benefit tremendously from some &ldquo;less is exponentially more&rdquo;.</p>
+
+<h3>Practical</h3>
+
+<p>The philosophical leads to the first practical consideration. Where are the
+core game dev devs that understand &ldquo;less is more&rdquo; and have the company $$$
+support to create and maintain the golang game dev packages?
+Every few years, like a gopher, I pop my head up and look around.
+I&rsquo;m hoping they are there, but I missed finding them. Anyone?</p>
+
+<p>The second practical reason is that coding can be a very small part of the total
+game dev process. As such the benefits of coding in Go are muted since code
+can not directly help with:</p>
+
+<ul>
+<li>game design</li>
+<li>level design</li>
+<li>3D modelling and animation</li>
+<li>narrative design and dialog</li>
+<li>audio design, capture, and editing</li>
+<li>2D art and textures</li>
+</ul>
+
+<p>The result is that small games can be coded in any language,
+including visual scripting languages like Blueprints in Unreal Engine.
+Coding being a small part of the game dev effort can be an argument for using Go
+since any extra effort needed for Go is a small part of the overall game release time.</p>
+
+<h3>Technical</h3>
+
+<p>I think of the technical issue as the <em>golang impedence problem</em>.
+Currently many golang game dev packages require <code>cgo</code> to interface
+with non-golang libraries like:</p>
+
+<ul>
+<li>Vulkan GPU API</li>
+<li>Platform API</li>
+<li>Audio API</li>
+</ul>
+
+<p>I find wrapping native API&rsquo;s with <code>cgo</code> frustrating.
+Frustrating to the point that, where possible, it is easier in the long term to port
+the essential parts of existing open source libraries to Go packages.</p>
+
+<p>Ideally there is no C compiler in the game dev tech stack (I&rsquo;m spoiled, I know, and don&rsquo;t forget lazy).
+Recently I reduced my game engine support to win64 which allowed me to replace <code>cgo</code> with syscalls.
+Coding became noticably more enjoyable once it was golang only.</p>
+
+<p>My thinking is that the technical impedence problems are solvable.
+How much time and effort would need be clarified.
+For example, is it even possible to write a golang Vulkan API layer without wrappers?
+Maybe. Does it make sense? Worth the effort?
+Would love it if one just appeared though.</p>
+
+<h3>Summary</h3>
+
+<p>Go game development is slowly growing but needs more work to become a viable
+alternative for new game dev coders. Existing technical issues can solved with
+some practical time, effort and $$$. In the meantime golang game dev as a hobby is fantastic!</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><p><a href="https://github.com/gazed/vu">vu engine</a> A small personal collection of
+  Go game dev packages for games that don&rsquo;t need a level editor. The most recent
+  version removed <code>cgo</code> and swapped out <code>OpenGL</code> for <code>Vulkan</code>.</p></li>
+
+<li id="fn:2"><a href="https://floworlds.com">Floworlds</a> First game on the most recent <code>vu</code> engine.</li>
+</ol>
+
+</div>
+
+</body>
+</html>
